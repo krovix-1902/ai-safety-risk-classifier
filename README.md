@@ -32,10 +32,13 @@ scikit-learn baseline.
 
 | Model              | Test accuracy |
 |--------------------|---------------|
-| Custom tree (d=3)  | __%           |
-| scikit-learn (d=3) | __%           |
+| Custom tree (d=3)  | 83.3% (30/36) |
+| scikit-learn (d=3) | FILL_ME%      |
 
-Misclassified __ of __ held-out examples.
+All six misclassifications were predicted as **medium** risk: four low-risk
+cases were over-rated and two high-risk cases were under-rated. The tree uses
+"medium" as a catch-all bucket, and its errors on high-risk inputs fall in the
+unsafe direction — under-calling risk rather than over-calling it.
 
 Because the labelling rule is hand-designed, this measures whether the tree can
 recover a rule I encoded — not whether it generalises to real AI-safety data.
@@ -50,6 +53,21 @@ A meaningful extension would replace the synthetic data with independently
 labelled evaluation examples and measure robustness across different models,
 prompt styles and annotators.
 
+## Project structure
+
+```
+ai-safety-risk-classifier/
+├── data/
+│   └── synthetic_safety_dataset.csv
+├── src/
+│   ├── risk_classifier.py    # SimpleDecisionTree: Gini, best split, fit/predict
+│   └── train.py              # training, sklearn baseline, failure analysis
+├── tests/
+│   └── test_tree.py
+├── research_question.md
+└── requirements.txt
+```
+
 ## Run
 
 ```bash
@@ -61,6 +79,7 @@ pytest
 ## Next steps
 
 1. Vary `max_depth` and compare training/test performance.
-2. Ablate one feature at a time and observe the effect.
+2. Ablate one feature at a time and observe the effect on each risk class.
 3. Replace synthetic labels with independently annotated examples.
-4. Analyse false positives and false negatives rather than headline accuracy.
+4. Analyse false positives and false negatives separately — for safety triage,
+   under-calling high risk matters more than over-calling low risk.
