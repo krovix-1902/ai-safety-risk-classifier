@@ -33,7 +33,7 @@ scikit-learn baseline.
 | Model              | Test accuracy |
 |--------------------|---------------|
 | Custom tree (d=3)  | 83.3% (30/36) |
-| scikit-learn (d=3) | FILL_ME%      |
+| scikit-learn (d=3) | 83.3% (30/36)      |
 
 All six misclassifications were predicted as **medium** risk: four low-risk
 cases were over-rated and two high-risk cases were under-rated. The tree uses
